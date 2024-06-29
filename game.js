@@ -49,9 +49,11 @@ function usersTurn() {
     });
 }
 
-function userClickedPattern(index){
-    if(userClickedPattern[index] === gamePattern[index]){
-        level++
+function checkAnswer(index){
+    if(userClickedPattern[index] === gamePattern[index] ){
+        if(userClickedPattern.length == gamePattern.length){
+            moveNextLevel()
+        }
     }else{
         resetGame()
     }
@@ -61,4 +63,10 @@ function resetGame(){
     userClickedPattern = []
     level = 0
     started = false
+}
+
+function moveNextLevel(){
+    level++
+    userClickedPattern = []
+    
 }
