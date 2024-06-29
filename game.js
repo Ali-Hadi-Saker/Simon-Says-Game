@@ -15,22 +15,50 @@ document.addEventListener('keypress', () => {
 })
 
 function generatePattern(){
+
     let random = Math.floor(Math.random()*4 )
-    gamePattern.push(random)
+    gamePattern.push(buttonColors[random])
     displayPattern(random)
 }
-function displayPattern(index){
-    
+
+function displayPattern(index){    
+
     btn[index].style.backgroundColor = '#ccc'
     setTimeout(function(){
         btn[index].style.backgroundColor = buttonColors[index]
-        generateAudio(buttonColors[index])
-        
+        generateAudio(buttonColors[index])        
     }, 200)
-    
+    usersTurn()
 }
+
 function generateAudio(color){
+
     let audio = document.getElementById(color)
     audio.currentTime = 0
     audio.play()
+
+}
+
+function usersTurn() {
+    buttonColors.forEach(color => {
+        document.getElementById(color).addEventListener('click', () => {
+            userClickedPattern.push(color);
+            generateAudio(color);
+            checkAnswer(userClickedPattern.length - 1)
+        });
+    });
+}
+
+function userClickedPattern(index){
+    if(userClickedPattern[index] === gamePattern[index]){
+        level++
+    }else{
+        resetGame()
+    }
+}
+function resetGame(){
+    gamePattern = []
+    userClickedPattern = []
+    level = 0
+    started = false
 }
