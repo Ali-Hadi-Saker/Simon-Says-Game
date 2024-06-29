@@ -55,6 +55,8 @@ function checkAnswer(index){
             moveNextLevel()
         }
     }else{
+        let audio = document.getElementById('wrong')
+        audio.play()
         resetGame()
     }
 }
@@ -70,3 +72,4 @@ function moveNextLevel(){
     userClickedPattern = []
     
 }
+usersTurn()
