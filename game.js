@@ -24,7 +24,13 @@ function displayPattern(index){
     btn[index].style.backgroundColor = '#ccc'
     setTimeout(function(){
         btn[index].style.backgroundColor = buttonColors[index]
+        generateAudio(buttonColors[index])
         
     }, 200)
     
+}
+function generateAudio(color){
+    let audio = document.getElementById(color)
+    audio.currentTime = 0
+    audio.play()
 }
