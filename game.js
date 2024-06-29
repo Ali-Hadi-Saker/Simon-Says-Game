@@ -1,4 +1,5 @@
-const buttonColors = ["red", "blue", "green", "yellow"]
+let btn = document.querySelectorAll('.btn')
+const buttonColors = ["green","red", "yellow", "blue"  ]
 let gamePattern = [];
 let userClickedPattern = []
 let started = false
@@ -8,8 +9,22 @@ document.addEventListener('keypress', () => {
 
     if (!started) {
         document.querySelector("#level-title").textContent = `Level ${level}`
-        nextSequence();
+        generatePattern();
         started = true
     }
 })
 
+function generatePattern(){
+    let random = Math.floor(Math.random()*4 )
+    gamePattern.push(random)
+    displayPattern(random)
+}
+function displayPattern(index){
+    
+    btn[index].style.backgroundColor = '#ccc'
+    setTimeout(function(){
+        btn[index].style.backgroundColor = buttonColors[index]
+        
+    }, 200)
+    
+}
