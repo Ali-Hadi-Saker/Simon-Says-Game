@@ -30,7 +30,7 @@ function displayPattern(index){
     setTimeout(function(){
         btn[index].style.backgroundColor = buttonColors[index]
         generateAudio(buttonColors[index])        
-    }, 500)    
+    }, 300)    
 }
 
 function generateAudio(color){
@@ -54,7 +54,9 @@ function generateAudio(color){
 function checkAnswer(index){
     if(userClickedPattern[index] === gamePattern[index] ){
         if(userClickedPattern.length == gamePattern.length){
-            generatePattern()
+            setTimeout(function(){
+                generatePattern()
+            },500)
         }
     }else{
         let audio = document.getElementById('wrong')
