@@ -4,6 +4,7 @@ let gamePattern = [];
 let userClickedPattern = []
 let started = false
 let level = 0
+var userColor
 
 document.addEventListener('keypress', () => {
 
@@ -15,10 +16,12 @@ document.addEventListener('keypress', () => {
 })
 
 function generatePattern(){
-
+    level++
+    userClickedPattern = []
     let random = Math.floor(Math.random()*4 )
     gamePattern.push(buttonColors[random])
     displayPattern(random)
+    
 }
 
 function displayPattern(index){    
@@ -27,8 +30,7 @@ function displayPattern(index){
     setTimeout(function(){
         btn[index].style.backgroundColor = buttonColors[index]
         generateAudio(buttonColors[index])        
-    }, 200)
-    usersTurn()
+    }, 500)    
 }
 
 function generateAudio(color){
@@ -39,20 +41,20 @@ function generateAudio(color){
 
 }
 
-function usersTurn() {
-    buttonColors.forEach(color => {
-        document.getElementById(color).addEventListener('click', () => {
-            userClickedPattern.push(color);
-            generateAudio(color);
-            checkAnswer(userClickedPattern.length - 1)
-        });
-    });
-}
+// function usersTurn() {
+//     buttonColors.forEach(color => {
+//         document.getElementById(color).addEventListener('click', () => {
+//             userClickedPattern.push(color);
+//             generateAudio(color);
+//             checkAnswer(userClickedPattern.length - 1)
+//         });
+//     });
+// }
 
 function checkAnswer(index){
     if(userClickedPattern[index] === gamePattern[index] ){
         if(userClickedPattern.length == gamePattern.length){
-            moveNextLevel()
+            generatePattern()
         }
     }else{
         let audio = document.getElementById('wrong')
@@ -67,9 +69,13 @@ function resetGame(){
     started = false
 }
 
-function moveNextLevel(){
-    level++
-    userClickedPattern = []
-    
-}
-usersTurn()
+
+// usersTurn()
+btn.forEach(button => {
+    button.addEventListener('click', (event) => {
+        userColor = event.target.id;
+        generateAudio(userColor);
+        userClickedPattern.push(userColor);
+        checkAnswer(userClickedPattern.length - 1);
+    });
+});
