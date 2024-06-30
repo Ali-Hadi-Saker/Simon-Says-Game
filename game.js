@@ -17,6 +17,7 @@ document.addEventListener('keypress', () => {
 
 function generatePattern(){
     level++
+    document.querySelector("#level-title").textContent = `Level ${level}`
     userClickedPattern = []
     let random = Math.floor(Math.random()*4 )
     gamePattern.push(buttonColors[random])
@@ -41,16 +42,6 @@ function generateAudio(color){
 
 }
 
-// function usersTurn() {
-//     buttonColors.forEach(color => {
-//         document.getElementById(color).addEventListener('click', () => {
-//             userClickedPattern.push(color);
-//             generateAudio(color);
-//             checkAnswer(userClickedPattern.length - 1)
-//         });
-//     });
-// }
-
 function checkAnswer(index){
     if(userClickedPattern[index] === gamePattern[index] ){
         if(userClickedPattern.length == gamePattern.length){
@@ -61,6 +52,12 @@ function checkAnswer(index){
     }else{
         let audio = document.getElementById('wrong')
         audio.play()
+        document.querySelector("#level-title").textContent = `Level 0`
+        document.querySelector("#level-title").textContent = `Game Over, Press Any Key to Restart`
+        document.body.classList.add('game-over');
+        setTimeout(function(){
+            document.body.classList.remove('game-over');
+        }, 300)
         resetGame()
     }
 }
@@ -72,7 +69,6 @@ function resetGame(){
 }
 
 
-// usersTurn()
 btn.forEach(button => {
     button.addEventListener('click', (event) => {
         userColor = event.target.id;
